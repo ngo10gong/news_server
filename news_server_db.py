@@ -934,9 +934,68 @@ class NewsAllTable():
   def getFirstSubDomainDict(self):
     return self.session.query(FirstSubDomainTable).all() 
 
+  #
+  # delete all table content
+  # 
+  def deleteAllTable(self) :
+    self.session.query(DomainTable).delete()
+    self.session.query(CategoryTable).delete()
+    self.session.query(FirstSubDomainTable).delete()
+    self.session.query(ArticleTable).delete()
+    self.session.commit()
 
 
+  #
+  # initialize database with fake data 
+  #
+  def init_fake_data(self):
+    domaintable_entry=DomainTable(
+      baseurl='http://news.rthk.hk',
+      chi_name='香港電台',
+      eng_name='rthk')
+    self.session.add(domaintable_entry)
+    domaintable_entry=DomainTable(
+      baseurl='http://881903.com',
+      chi_name='商業電台',
+      eng_name='crhk')
+    self.session.add(domaintable_entry)
+    categorytable_entry=CategoryTable(
+      chi_name='要聞港聞',
+      eng_name='headlinenews')
+    self.session.add(categorytable_entry)
+    firstsubdomaintable_entry=FirstSubDomainTable(
+      domaintable_id=1,
+      categorytable_id=1,
+      firstsubd='/hello1',
+      onlyweekdays=False)
+    self.session.add(firstsubdomaintable_entry)
+    firstsubdomaintable_entry=FirstSubDomainTable(
+      domaintable_id=1,
+      categorytable_id=2,
+      firstsubd='/hello2',
+      onlyweekdays=False)
+    self.session.add(firstsubdomaintable_entry)
 
+
+    article_entry=ArticleTable(
+      firstsubdomaintable_id=1,
+      finalurl="url1",
+      timestampondoc=datetime.now(timezone(timedelta(hours=8))),
+      timestamponretrieve=datetime.now(timezone(timedelta(hours=8))),
+      title="title 1",
+      content="content 1"
+      )
+    self.session.add(article_entry)
+    article_entry=ArticleTable(
+      firstsubdomaintable_id=2,
+      finalurl="url2",
+      timestampondoc=datetime.now(timezone(timedelta(hours=8))),
+      timestamponretrieve=datetime.now(timezone(timedelta(hours=8))),
+      title="title 2",
+      content="content 2"
+      )
+    self.session.add(article_entry)
+    self.session.commit()
 
 
 
