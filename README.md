@@ -1,7 +1,8 @@
 News Server
 ==========
 
-This repository contains differnt database table definitin and the middleware which help inidividual program/script to get/set/manipulate data in database.  The middleware is using sqlalchemy to handle the communication with sqlite database. 
+This repository contains differnt database table definition and the middleware which help inidividual program/script to get/set/manipulate data in database.  The middleware is using sqlalchemy to handle the communication with sqlite database. 
+
 
 Example
 -------
